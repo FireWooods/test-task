@@ -13,7 +13,7 @@ export class UsersController {
   @ApiResponse({ status: 200, type: User })
   @Get('fake')
   createFakeUser() {
-    return this.userService.getFakeUser();
+    return this.userService.createFakeUser();
   }
 
   @ApiOperation({ summary: 'Создание пользователей' })
@@ -28,5 +28,12 @@ export class UsersController {
   @Get()
   getAll() {
     return this.userService.getUsers();
+  }
+
+  @ApiOperation({ summary: 'Обновить пользователей' })
+  @ApiResponse({ status: 200, type: [User] })
+  @Get('update')
+  updateUser() {
+    return this.userService.updateUsers();
   }
 }
