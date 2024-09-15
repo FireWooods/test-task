@@ -135,12 +135,12 @@ class RemainsController {
 
             if (filter?.plu) {
                 const { rows } = await db.query(
-                    `SELECT * FROM shelf where plu = $1`,
+                    `SELECT * FROM shelf LEFT JOIN product ON shelf.product_id = product.id where product.plu = $1`,
                     [filter.plu]
                 );
 
-                rows.forEach((plu) => {
-                    productOnShelfByFilter.push(plu);
+                rows.forEach((index) => {
+                    productOnShelfByFilter.push(index);
                 });
             }
 
@@ -150,29 +150,29 @@ class RemainsController {
                     [filter.shopId]
                 );
 
-                rows.forEach((shopId) => {
-                    productOnShelfByFilter.push(shopId);
+                rows.forEach((index) => {
+                    productOnShelfByFilter.push(index);
                 });
             }
 
-            if (filter?.startDate || filter?.endDate) {
+            if (filter?.startDate && filter?.endDate) {
                 const { rows } = await db.query(
-                    `SELECT * FROM shelf where started_at BETWEEN $1 AND $2`,
+                    `SELECT * FROM shelf where created_at BETWEEN $1 AND $2`,
                     [filter?.startDate, filter?.endDate]
                 );
 
-                rows.forEach((plu) => {
-                    productOnShelfByFilter.push(plu);
+                rows.forEach((index) => {
+                    productOnShelfByFilter.push(index);
                 });
+            }
 
-                if (!productOnShelfByFilter[0]) {
-                    res.status(400).send({
-                        success: false,
-                        message: 'Product is not found',
-                    });
-                } else {
-                    res.send({ success: true, body: productOnShelfByFilter });
-                }
+            if (!productOnShelfByFilter[0]) {
+                res.status(400).send({
+                    success: false,
+                    message: 'Product is not found',
+                });
+            } else {
+                res.send({ success: true, body: productOnShelfByFilter });
             }
         } catch (e) {
             console.log(e);
@@ -189,44 +189,44 @@ class RemainsController {
 
             if (filter?.plu) {
                 const { rows } = await db.query(
-                    `SELECT * FROM orders where plu = $1`,
+                    `SELECT * FROM orders LEFT JOIN product ON orders.product_id = product.id where product.plu = $1`,
                     [filter.plu]
                 );
 
-                rows.forEach((plu) => {
-                    productOnShelfByFilter.push(plu);
+                rows.forEach((index) => {
+                    productOnShelfByFilter.push(index);
                 });
             }
 
             if (filter?.shopId) {
                 const { rows } = await db.query(
-                    `SELECT * FROM orders where plu = $1`,
-                    [filter.plu]
+                    `SELECT * FROM orders where shop_id = $1`,
+                    [filter.shopId]
                 );
 
-                rows.forEach((plu) => {
-                    productOnShelfByFilter.push(plu);
+                rows.forEach((index) => {
+                    productOnShelfByFilter.push(index);
                 });
             }
 
-            if (filter?.startDate || filter?.endDate) {
+            if (filter?.startDate && filter?.endDate) {
                 const { rows } = await db.query(
-                    `SELECT * FROM orders where started_at BETWEEN $1 AND $2`,
+                    `SELECT * FROM orders where created_at BETWEEN $1 AND $2`,
                     [filter?.startDate, filter?.endDate]
                 );
 
-                rows.forEach((plu) => {
-                    productOnShelfByFilter.push(plu);
+                rows.forEach((index) => {
+                    productOnShelfByFilter.push(index);
                 });
+            }
 
-                if (!productOnShelfByFilter[0]) {
-                    res.status(400).send({
-                        success: false,
-                        message: 'Product is not found',
-                    });
-                } else {
-                    res.send({ success: true, body: productOnShelfByFilter });
-                }
+            if (!productOnShelfByFilter[0]) {
+                res.status(400).send({
+                    success: false,
+                    message: 'Product is not found',
+                });
+            } else {
+                res.send({ success: true, body: productOnShelfByFilter });
             }
         } catch (e) {
             console.log(e);

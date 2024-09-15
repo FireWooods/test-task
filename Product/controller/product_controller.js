@@ -111,8 +111,8 @@ class ProductController {
                     [filter.name]
                 );
 
-                rows.forEach((name) => {
-                    productsByFilter.push(name);
+                rows.forEach((index) => {
+                    productsByFilter.push(index);
                 });
             }
             if (filter?.plu) {
@@ -121,8 +121,8 @@ class ProductController {
                     [filter.plu]
                 );
 
-                rows.forEach((plu) => {
-                    productsByFilter.push(plu);
+                rows.forEach((index) => {
+                    productsByFilter.push(index);
                 });
             }
 
