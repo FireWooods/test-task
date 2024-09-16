@@ -9,25 +9,11 @@ import { User } from './user.model';
 export class UsersController {
   constructor(private userService: UsersService) {}
 
-  @ApiOperation({ summary: 'Создание фейкового пользователей' })
+  @ApiOperation({ summary: 'Создание 1 миллиона пользователей' })
   @ApiResponse({ status: 200, type: User })
-  @Get('fake')
+  @Post('fake')
   createFakeUser() {
     return this.userService.createFakeUser();
-  }
-
-  @ApiOperation({ summary: 'Создание пользователей' })
-  @ApiResponse({ status: 200, type: User })
-  @Post()
-  create(@Body() userDto: CreateUserDto) {
-    return this.userService.createUser(userDto);
-  }
-
-  @ApiOperation({ summary: 'Получить всех пользователей' })
-  @ApiResponse({ status: 200, type: [User] })
-  @Get()
-  getAll() {
-    return this.userService.getUsers();
   }
 
   @ApiOperation({ summary: 'Обновить пользователей' })
