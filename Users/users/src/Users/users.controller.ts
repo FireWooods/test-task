@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Controller, Get, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from './user.model';
@@ -11,14 +10,14 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Создание 1 миллиона пользователей' })
   @ApiResponse({ status: 200, type: User })
-  @Post('fake')
+  @Post('')
   createFakeUser() {
     return this.userService.createFakeUser();
   }
 
   @ApiOperation({ summary: 'Обновить пользователей' })
   @ApiResponse({ status: 200, type: [User] })
-  @Get('update')
+  @Get('')
   updateUser() {
     return this.userService.updateUsers();
   }

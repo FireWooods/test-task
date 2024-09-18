@@ -18,5 +18,3 @@ async function start() {
 }
 
 start();
-
-///https://www.youtube.com/watch?v=dDeWWQWMM-Y Видео как писать с помощью Nest.js

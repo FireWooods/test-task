@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { User } from './user.model';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateUserDto } from './dto/create-user.dto';
 import { faker } from '@faker-js/faker';
+import { timestamp } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -18,12 +18,12 @@ export class UsersService {
       },
     );
 
-    return users;
+    return { success: true, body: `Количество изменений ${users}` };
   }
 
   async createFakeUser() {
     const arrFakeUsers = [];
-    const arrAllFakeUsers = [];
+
     for (let i = 0; i < 1000; i++) {
       const fakeUser = {
         name: faker.name.firstName(),
@@ -37,14 +37,7 @@ export class UsersService {
     }
 
     for (let i = 0; i < 1000; i++) {
-      {
-        const copyFakeUserArr = arrFakeUsers.map((element) => element);
-        arrAllFakeUsers.push(copyFakeUserArr);
-      }
-    }
-
-    for (let i = 0; i < arrAllFakeUsers.length; i++) {
-      await this.userRepository.bulkCreate(arrAllFakeUsers[0]);
+      await this.userRepository.bulkCreate(arrFakeUsers);
     }
 
     return { success: true };
